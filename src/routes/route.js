@@ -1,41 +1,104 @@
 const express = require('express');
-const myHelper = require('../util/helper')
-const underscore = require('underscore')
 
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    myHelper.printDate()
-    myHelper.getCurrentMonth()
-    myHelper.getCohortData()
-    let firstElement = underscore.first(['Sabiha','Akash','Pritesh'])
-    console.log('The first element received from underscope function is '+firstElement)
-    res.send('My first ever api!')
-});
 
-router.get('/hello', function (req, res) {
-   
-    res.send('Hello there!')
-});
+// router.get('/movies', function(req, res){
+//     let movies = ["strangerThings","conjuring","dark","HauntingofTheHillHouse"]
+//     console.log(movies)
+//    res.send(movies)
+// })
 
-router.get('/candidates', function(req, res){
-    console.log('Query paramters for this request are '+JSON.stringify(req.query))
-    let gender = req.query.gender
-    let state = req.query.state
-    let district = req.query.district
-    console.log('State is '+state)
-    console.log('Gender is '+gender)
-    console.log('District is '+district)
-    let candidates = ['Akash','Suman']
-    res.send(candidates)
+//============================Solution:1==========================================================
+
+
+// router.get('/movies/:indexNumber', function(req, res){
+//     let movies = ["strangerThings","conjuring","dark","HauntingofTheHillHouse"]
+//     let indexNumber = req.params.indexNumber;
+//     console.log('the name of the movie is '+ movies[indexNumber]) 
+    
+//     res.send('done!')
+// })
+
+//============================Solution:2============================================================
+
+
+router.get('/movies/:indexNumber', function(req, res){
+    let movies = ["strangerThings","theConjuring","dark","HauntingofTheHillHouse"]
+    for (let i=0; i<movies.length; i++){
+        if (req.params.indexNumber < movies.length){
+            let indexNumber = req.params.indexNumber;
+            console.log('the name of the movie is '+ movies[indexNumber]) 
+            res.send('done!')
+        }
+        else {
+            res.send("please use a valid index !")
+        }
+        
+    }
 })
 
-router.get('/candidates/:canidatesName', function(req, res){
-    console.log('The request objects is '+ JSON.stringify(req.params))
-    console.log('Candidates name is '+req.params.canidatesName)
-    res.send('Done')
-})
+//============================solution:3===============================================================
+
+
+
+// router.get('/films', function(req , res){
+//     let films = [
+//         {
+//             "id": 1,
+//             "name": "trangerThings"
+//         },
+//         {
+//             "id": 2,
+//             "name": "theConjuring"
+//         },
+//         {
+//             "id": 3,
+//             "name": "anabelleCreation"  
+//         },
+//         {
+//             "id": 4,
+//             "name": "haunted"  
+//         }
+//     ]
+//     res.send(films)
+// })
+
+// //====================================solution:4==============================================================
+    
+// router.get('/films/:filmId', function(req, res){
+//     let films = [
+//         {
+//             "id": 1,
+//             "name": "trangerThings"
+//         },
+//         {
+//             "id": 2,
+//             "name": "theConjuring"
+//         },
+//         {
+//             "id": 3,
+//             "name": "anabelleCreation"  
+//         },
+//         {
+//             "id": 4,
+//             "name": "haunted"  
+//         }
+//     ]
+//     for (let i=0; i<films.length; i++){
+//         let indexNumber = req.params.filmId;
+//         if (indexNumber <= films.length && indexNumber > 0){
+//             console.log('the name of the movie is '+ JSON.stringify(films[indexNumber-1])) 
+//             res.send('done!')
+//         }
+//         else {
+//             res.send("No film exist with this id !")
+//         }
+        
+//     }
+// })
+
+//=========================================solution:5===========================================================
 
 
 module.exports = router;
-// adding this comment for no reason
