@@ -1,68 +1,54 @@
 const bookModel = require('../model/bookModel')
+const authorModel = require('../model/authorModel')
 
 
 
 const creatBook = async function(req , res){
     let Data = req.body;
-    let saveData = await bookModel.create(Data);
-    res.send({msg : saveData})
-}
-
-//=======================================solution:01============================================================
-
-
-const bookList = async function(req , res){
-    let allBooks = await bookModel.find().select({ bookName : 1 ,authorName : 1, _id : 0 });
-    res.send({msg : allBooks})
-}
-
-//=========================================solution:02============================================================
-
-
-const getBooksInYear = async function(req , res){
-    let myYear = req.body.year
-    let allBooks = await bookModel.find({myYear : year}).select({bookName : 1, _id : 0});
-    res.send({msg : allBooks})
-}
-
-
-//============================================solution:03===========================================================
-
-
-
-const getParticularBooks = async function(req , res){
-    let myData = req.body
-    let allBooks = await bookModel.find(myData);
-    res.send({msg : allBooks})
-}
-
-
-//===========================================solution:04==========================================================
-
-
-
-const getXINRBooks = async function(req , res){
-    let allBooks = await bookModel.find({  "PriceodBOok.indianPrice"  : {$in : ["600","450","500"]}  }).select({bookName : 1, _id : 0});
-    res.send({msg : allBooks})
+    let saveBookData = await bookModel.create(Data);
+    res.send({msg : saveBookData})
 }
 
 
 
-//=============================================solution:05========================================================
-
-
-
-const getRandomBooks = async function(req , res){
-    let allBooks = await bookModel.find({ $or : [{totalPages : {$gt : 500}},{stockAvailable : true}]}).select({bookName : 1, _id : 0}).count()
-    res.send({msg : allBooks})
+const creatAuthor = async function(req , res){
+    let Data = req.body;
+    let saveAuthorData = await authorModel.create(Data)
+    res.send({msg : saveAuthorData})
 }
 
-//=================================solution:06=======================================================================
+
+const findBooks = async function(req , res){
+    let Data = await authorModel.find({authorName : "Chetan Bhagat"}).select({author_id : 1, _id :0});
+    let fdBooks = await bookModel.find({author_id : Data[0].author_id}).select({bookName : 1, _id : 0});
+    res.send({msg : fdBooks})
+}
+
+
+const findAuthor = async function(req , res){
+    let Data = await bookModel.findOneAndUpdate({bookName : "Two States"},{$set:{price : 100}},{new:true});
+    let fdAuthor = await authorModel.find({author_id : Data.author_id}).select({authorName : 1, _id : 0});
+    let prices = Data.price
+    res.send({msg : fdAuthor,prices})
+}
+
+
+const findBookCost = async function(req , res){
+    let Data = await bookModel.find({   price : {$gte : 50 , $lte : 100}  }).select({author_id : 1, _id : 0});
+    let xyz = await authorModel.find()
+    res.send({msg : xyz})
+    
+ }
+
+
+
 
 
 module.exports.creatBook = creatBook;
-module.exports.bookList = bookList;
-module.exports.getBooksInYear = getBooksInYear;
-module.exports.getXINRBooks = getXINRBooks;
-module.exports.getRandomBooks = getRandomBooks;
-module.exports.getParticularBooks = getParticularBooks;
+module.exports.creatAuthor = creatAuthor;
+module.exports.findBooks = findBooks;
+module.exports.findAuthor = findAuthor;
+module.exports.findBookCost = findBookCost;
+
+
+

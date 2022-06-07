@@ -6,15 +6,14 @@ const Controller = require('../controller/Controller.js');
 
 router.post('/creatBook' , Controller.creatBook )
 
-router.get('/bookList', Controller.bookList)
+router.post('/creatAuthor', Controller.creatAuthor)
 
-router.post('/getBooksInYear', Controller.getBooksInYear)
+router.get('/findBooks', Controller.findBooks)
 
-router.get('/getXINRBooks', Controller.getXINRBooks)
+router.get('/findAuthor', Controller.findAuthor)
 
-router.get('/getRandomBooks', Controller.getRandomBooks)
+router.get('/findBookCost', Controller.findBookCost)
 
 
-router.post('/getParticularBooks', Controller.getParticularBooks)
 
 module.exports = router;
