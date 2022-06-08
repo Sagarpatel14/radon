@@ -33,12 +33,14 @@ const findAuthor = async function(req , res){
 }
 
 
-const findBookCost = async function(req , res){
-    let Data = await bookModel.find({   price : {$gte : 50 , $lte : 100}  }).select({author_id : 1, _id : 0});
-    let xyz = await authorModel.find()
-    res.send({msg : xyz})
+const findBookCost = async function (req, res) {
+    let Data = await bookModel.find( { price : { $gte : 50 , $lte : 100}} ).select({author_id : 1, _id :0});
+    for ( let i =0; i<Data.length; i++){
+        let xyz = await authorModel.findOne({ "author_id" : Data[i].author_id})
+        res.send({ msg : xyz.authorName})
+    }
+}
     
- }
 
 
 
