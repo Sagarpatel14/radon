@@ -1,30 +1,43 @@
 const express = require('express');
-const externalModule = require('./logger')
 
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    console.log('The constant in logger route has a value '+externalModule.endpoint)
-    console.log('The current batch is '+externalModule.batch)
-    externalModule.log()
-    res.send('My first ever api!')
-});
 
-router.get('/test-me1', function (req, res) {
-    res.send('My second ever api!')
-});
+router.get("/sol1", function (req, res) {
 
-router.get('/test-me2', function (req, res) {
-    res.send('My third api!')
-});
+    let arr= [1,2,3,5,6,7]
+  
+    let total = 0;
+    for (let i in arr) {
+        total += arr[i];
+    }
+  
+    let lastDigit= arr.pop()
+    let consecutiveSum= lastDigit * (lastDigit+1) / 2
+    let missingNumber= consecutiveSum - total
+  
+    res.send(  { data: missingNumber  }  );
+  });
 
-router.get('/test-me3', function (req, res) {
-    res.send('My 4th api!')
-});
 
-router.get('/test-me4', function (req, res) {
-    res.send('My last api!')
-});
+  router.get("/sol2", function (req, res) {
+   
+    let arr= [33, 34, 35, 37, 38]
+    let len= arr.length
+  
+    let total = 0;
+    for (var i in arr) {
+        total += arr[i];
+    }
+  
+    let firstDigit= arr[0]
+    let lastDigit= arr.pop()
+    let consecutiveSum= (len + 1) * (firstDigit+ lastDigit ) / 2
+    let missingNumber= consecutiveSum - total
+   
+    res.send(  { data: missingNumber  }  );
+  });
+ 
 
-module.exports = router;
-// adding this comment for no reason
+
+  module.exports = router;
