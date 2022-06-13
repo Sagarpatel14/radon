@@ -16,9 +16,9 @@ const router = express.Router();
 // });
 router.post('/createProduct', productController.createProduct)
 
-router.post('/createUser', commanMW.isFreeAppUser , userController.createUser)
+router.post('/createUser', commanMW.mid1 , userController.createUser)
 
-router.post('/createOrder', commanMW.isFreeAppUser, orderController.createOrder)
+router.post('/createOrder', commanMW.mid2, commanMW.mid3, orderController.createOrder)
 
 
 
