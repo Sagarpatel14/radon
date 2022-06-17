@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose")
 const bookModel= require("../models/bookModel")
 const publisherModel= require("../models/publisherModel")
 const authorModel = require("../models/authorModel")
-const isValidObject = function(ObjectId){
+const isValidObjectId = function(ObjectId){
     return mongoose.Types.ObjectId.isValid(ObjectId)
 }
 
@@ -14,13 +14,13 @@ const createBook= async function (req, res) {
     if(!authorId){
         return res.send({msg : "author id is required"})
     }
-    if(!isValidObject(authorId)){
+    if(!isValidObjectId(authorId)){
         return res.send({msg : "author id is not valid"})
     }
     if(!publisherId){
         return res.send({msg : "publishers id is required"})
     }
-    if(!isValidObject(publisherId)){
+    if(!isValidObjectId(publisherId)){
         return res.send({msg : "publishers id is not valid"})
     }
     let bookCreated = await bookModel.create(book)
